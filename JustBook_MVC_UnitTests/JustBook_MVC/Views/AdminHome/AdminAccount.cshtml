@@ -1,0 +1,110 @@
+﻿@model JustBook.Models.TaiKhoanQT
+
+@{
+    ViewBag.Title = "Thông tin tài khoản | Admin";
+    Layout = "~/Views/Header.cshtml";
+}
+
+<div class="page-admin">
+    <div class="sidebar-admin">
+        <div class="sidebar-title">DANH SÁCH CHỨC NĂNG</div>
+        <a class="sidebar-item" href="@Url.Action("Index", "AdminHome")">
+            <span class="fa fa-home"></span>
+            <span class="sidebar-item-title">Trang chủ</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("AdminAccount", "AdminHome")">
+            <span class="fa fa-user-alt"></span>
+            <span class="sidebar-item-title">Thông tin tài khoản</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("AdminNotification", "AdminHome")">
+            <span class="fas fa-bell"></span>
+            <span class="sidebar-item-title">Thông báo của tôi</span>
+            <span class="badge" style="background-color: red;">5</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("OrderManagement", "AdminHome")">
+            <span class="fa fa-address-card"></span>
+            <span class="sidebar-item-title">Quản lý đơn hàng</span>
+        </a>
+        <a class="sidebar-item" href="ProductManagement">
+            <span class="fas fa-tags"></span>
+            <span class="sidebar-item-title">Quản lý sản phẩm</span>
+        </a>
+    </div>
+    <div class="content-admin">
+        <div class="admin-account">
+            <div class="admin-title-account">THÔNG TIN TÀI KHOẢN</div>
+            @using (Html.BeginForm("AdminEditInformation", "AdminHome", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.MaQT)
+                <div class="from_row">
+                    <label style="margin-right: 50px;">Họ tên</label>
+                    @Html.EditorFor(model => model.TenQT, new { htmlAttributes = new { @class = "from__input", @size = "38", @placeholder = "Họ Tên", @style = "width: 300px;" } })
+                </div>
+                <div class="from_row">
+                    <label style="margin-right: 50px;" for="email">Email</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "from__input", size = "38", placeholder = "Nhập địa chỉ email của bạn", style = "width: 300px;" } })
+                </div>
+                <div class="from_row">
+                    <label style="margin-right: 50px;" for="sdt">Số điện thoại</label>
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "from__input", @size = "38", placeholder = "Hãy nhập SĐT để trải nghiệm tốt hơn", style = "width: 300px;" } })
+                </div>
+                <div class="from_row">
+                    <label style="margin-right: 50px;" for="gioitinh">Giới tính</label>
+
+                    @Html.RadioButtonFor(model => model.GioiTinh, "Nam")
+                    <label class="lb_giotinh" for="nam">Nam</label>
+                    @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+                    <label class="lb_giotinh" for="nu">Nữ</label><br><br>
+                    @*@if (Model.GioiTinh == "Nam")
+                        {
+                            <input type="radio" id="GioiTinh" name="gender" value="nam" checked>
+                            <label class="lb_giotinh" for="nam">Nam</label>
+                            <input type="radio" id="GioiTinh" name="gender" value="nu">
+                            <label class="lb_giotinh" for="nu">Nữ</label><br><br>
+                        }
+                        else if (Model.GioiTinh == "Nữ")
+                        {
+                            <input type="radio" id="GioiTinh" name="gender" value="nam">
+                            <label class="lb_giotinh" for="nam">Nam</label>
+                            <input type="radio" id="GioiTinh" name="gender" value="nu" checked>
+                            <label class="lb_giotinh" for="nu">Nữ</label>
+                            <br><br>
+                        }
+                        else
+                        {
+                            <input type="radio" id="GioiTinh" name="gender" value="nam">
+                            <label class="lb_giotinh" for="nam">Nam</label>
+                            <input type="radio" id="GioiTinh" name="gender" value="nu">
+                            <label class="lb_giotinh" for="nu">Nữ</label><br><br>
+                        }*@
+                </div>
+                <div class="from_row">
+                    <label style="margin-right: 50px;" for="ngaysinh">Ngày sinh</label>
+                    <div class="input-group from__input date" data-provide="datepicker">
+                        @*<input type="text" class="form-control" value=@Model.NgaySinh id="NgaySinh">*@
+                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
+
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>   <br><br>
+                </div>
+                <div class="from_row">
+                    <label class="input__label">&nbsp;</label>
+                    <button class="btn__submit" type="submit">Cập nhật</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section datePicker {
+
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.date').datepicker({
+            format: 'dd/mm/yyyy'
+        });
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ | Admin";
+    Layout = "~/Views/Header.cshtml";
+}
+
+<div class="page-admin">
+    <div class="sidebar-admin">
+        <div class="sidebar-title">DANH SÁCH CHỨC NĂNG</div>
+        <a class="sidebar-item" href="@Url.Action("Index", "AdminHome")">
+            <span class="fa fa-home"></span>
+            <span class="sidebar-item-title">Trang chủ</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("AdminAccount", "AdminHome")">
+            <span class="fa fa-user-alt"></span>
+            <span class="sidebar-item-title">Thông tin tài khoản</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("AdminNotification", "AdminHome")">
+            <span class="fas fa-bell"></span>
+            <span class="sidebar-item-title">Thông báo của tôi</span>
+            <span class="badge" style="background-color: red;">5</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("OrderManagement", "AdminHome")">
+            <span class="fa fa-address-card"></span>
+            <span class="sidebar-item-title">Quản lý đơn hàng</span>
+        </a>
+        <a class="sidebar-item" href="@Url.Action("ProductManagement", "AdminHome")">
+            <span class="fas fa-tags"></span>
+            <span class="sidebar-item-title">Quản lý sản phẩm</span>
+        </a>
+    </div>
+    <div class="content-admin">
+        <div class="card-todolist">
+            <p class="card-title">Danh sách cần làm</p>
+            <p class="card-subTitle">Những việc bạn sẽ phải làm</p>
+            <div>
+                <ul class="card-item">
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Chờ xác nhận</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Chờ lấy hàng</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Đã xử lý</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Đơn hủy</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="card-item">
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Trả Hàng / Hoàn Tiền Chờ Xử Lý</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Sản Phẩm Bị Tạm Khóa</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Sản Phẩm Hết Hàng</p>
+                        </a>
+                    </li>
+                    <li class="todo-item">
+                        <a href="#">
+                            <p class="quantity-todo-item">0</p>
+                            <p class="name-todo-item">Chương Trình Khuyến Mãi Chờ Xử Lý</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

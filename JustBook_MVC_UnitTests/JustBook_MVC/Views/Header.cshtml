@@ -1,0 +1,340 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>JustBook</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- style css -->
+    <link href="~/css/style_JustBook.css" rel="stylesheet" />
+    <link href="~/css/StyleAdd.css" rel="stylesheet" />
+    <link href="~/css/ThongTin_AD.css" rel="stylesheet" />
+    <link href="~/css/detail.css" rel="stylesheet" />
+    <link href="~/css/slick.css" rel="stylesheet" />
+    <link href="~/css/tracking.css" rel="stylesheet" />
+    <link href="~/css/admin_account.css" rel="stylesheet" />
+    <link href="~/css/user_account.css" rel="stylesheet" />
+    <link href="~/css/user_order_history.css" rel="stylesheet" />
+    <link href="~/css/admin_order_manage.css" rel="stylesheet" />
+    <link href="~/css/add_product.css" rel="stylesheet" />
+    <link href="~/css/shopping.css" rel="stylesheet" />
+    <link href="~/css/quantity_counter.css" rel="stylesheet" />
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--Link Icon-->
+    <!--Link ICON giao dien quan tri-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="header-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div><a href="@Url.Action("Index", "Home")" class="logo">JUSTBOOK</a></div>
+                </div>
+                <div class="col-sm-10">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <div class="col-sm-4 dropdown">
+                                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="bookMenu">
+                                            <div>
+                                                <div class="iconMenu"></div>
+                                                <div class="iconMenu"></div>
+                                                <div class="iconMenu"></div>
+                                            </div>
+                                            <div class="wrapTextMenu">
+                                                <div>Book</div>
+                                                <span style="font-size: 19px;">Collection</span>
+                                                <span class="dropdown-toggle"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="bookCollection dropdown-menu" aria-labelledby="navbarDropdown">
+                                       @{ 
+                                           Html.RenderAction("CategoriesList", "Shopping");
+                                       }
+                                    </div>
+                                </div>
+                                @if (Session["MaQT"] == null)
+                                {
+                                    <nav class="col-lg-8 navbar navbar-light bg-light">
+
+                                        <form class="form-inline">
+                                            @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                                            {
+                                                @Html.TextBox("searching", null, new { @placeholder = "Tìm kiếm sản phẩm...", @style = "width: 350px !important; border-radius: 4px; margin-right: 10px;" });
+                                                <button class="custom-btn btn btn-outline-danger my-2 my-sm-0" type="submit" value="Search" formaction="@Url.Action("Index", "Search")" Search">Search</button>
+                                            }
+
+                                        </form>
+                                    </nav>
+                                }
+                                else
+                                {
+                                    <nav class="col-lg-10 navbar navbar-light bg-light">
+
+                                        <form class="form-inline">
+                                            @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                                            {
+                                                @Html.TextBox("searching", null, new { @placeholder = "Tìm kiếm sản phẩm...", @style = "width: 350px !important; border-radius: 4px; margin-right: 10px;" });
+                                                <button class="custom-btn btn btn-outline-danger my-2 my-sm-0" type="submit" value="Search" formaction="@Url.Action("Index", "Search")" Search">Search</button>
+                                            }
+
+                                        </form>
+                                    </nav>
+                                }
+                                @if (Session["MaQT"] == null)
+                                {
+                                    <div class="col-sm-3 cart">
+                                        @if (Session["CartCounter"] == null)
+                                        {
+                                            <a href="@Url.Action("Index", "Cart")">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span class='badge badge-warning' id="cartCount">0</span>
+                                                <span class="cartText">Giỏ Hàng</span>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index", "Cart")">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span class='badge badge-warning' id="cartCount">@Session["CartCounter"]</span>
+                                                <span class="cartText">Giỏ Hàng</span>
+                                            </a>
+                                        }
+                                    </div>
+                                }
+                                @if (Session["MaKH"] == null && Session["MaQT"] == null)
+                                {
+                                    <div class="col-sm-4 login dropdown">
+                                        <div id="loginMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-user" style="font-size: 25px; align-self: center;"></span>
+                                            <div style="padding-left: 10px;">
+                                                <span style="font-size: 11px;">Đăng nhập / Đăng ký</span>
+                                                <div class="dropdown-toggle">Tài khoản</div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdownMenuLogin dropdown-menu" aria-labelledby="loginMenu">
+                                            <a href="@Url.Action("Index", "Login")" class="itemLogin dropdown-item">
+                                                Đăng nhập
+                                            </a>
+                                            <a href="@Url.Action("Index", "Register")" class="itemLogin dropdown-item">
+                                                Tạo tài khoản
+                                            </a>
+                                            <div style="border-top: 1px solid #E0E0E0; margin: 0 30px;"></div>
+                                            <a href="@Url.Action("AdminLogin", "Login")" class="itemLogin dropdown-item btn-warning" style="color: #000; font-weight: bold;">
+                                                Tài khoản Admin
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else if (Session["MaQT"] != null)
+                                {
+                                    <div class="col-sm-4 login dropdown">
+                                        <div id="loginMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-user" style="font-size: 25px; align-self: center;"></span>
+                                            <div style="padding-left: 10px;">
+                                                <span style="font-size: 11px;">Tài khoản</span>
+                                                <div class="dropdown-toggle">@Session["TenQT"].ToString()</div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-menu" style="left: 0px;" aria-labelledby="loginMenu">
+                                            <a href="@Url.Action("OrderManagement", "AdminHome")" class="dropdown-item">
+                                                Quản lý đơn hàng
+                                            </a>
+                                            <a href="@Url.Action("ProductManagement", "AdminHome")" class="dropdown-item">
+                                                Quản lý sản phẩm
+                                            </a>
+                                            <a href="@Url.Action("AdminNotification", "AdminHome")" class="dropdown-item">
+                                                Thông báo của tôi
+                                                <span class="badge" style="background-color: red;">11</span>
+                                            </a>
+                                            <a href="@Url.Action("AdminAccount", "AdminHome")" class="dropdown-item">
+                                                Thông tin tài khoản
+                                            </a>
+                                            <a href="@Url.Action("LogOut", "Login")" class="dropdown-item">
+                                                Đăng xuất
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-4 login dropdown">
+                                        <div id="loginMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-user" style="font-size: 25px; align-self: center;"></span>
+                                            <div style="padding-left: 10px;">
+                                                <span style="font-size: 11px;">Tài khoản</span>
+                                                <div class="dropdown-toggle">@Session["TenKH"].ToString()</div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-menu" style="left: 0px;" aria-labelledby="loginMenu">
+                                            <a href="@Url.Action("OrderHistory", "UserHome")" class="dropdown-item">
+                                                Đơn hàng của tôi
+                                            </a>
+                                            <a href="@Url.Action("Notification", "UserHome")" class="dropdown-item">
+                                                Thông báo của tôi
+                                                <span class="badge" style="background-color: red;">11</span>
+                                            </a>
+                                            <a href="@Url.Action("Index", "UserHome")" class="dropdown-item">
+                                                Thông tin tài khoản
+                                            </a>
+                                            <a href="@Url.Action("LogOut", "Login")" class="dropdown-item">
+                                                Đăng xuất
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <!-- section footer start -->
+    <div class="section_footer">
+        <div class="container">
+            <div class="mail_section">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-2">
+                        <div><a class="logo" href="#">JUSTBOOK</a></a></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-12">
+                        <div class="social_icon">
+                            <ul>
+                                <li><a href="#"><img src="~/images/fb-icon.png"></a></li>
+                                <li><a href="#"><img src="~/images/twitter-icon.png"></a></li>
+                                <li><a href="#"><img src="~/images/in-icon.png"></a></li>
+                                <li><a href="#"><img src="~/images/google-icon.png"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div>
+            <div class="footer_section_2">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-3">
+                        <h2 class="shop_text">Address</h2>
+                        <div class="image-icon"><img src="~/images/map-icon.png"><span class="pet_text">69/68 Đặng Thùy Trâm, P. 13, Q. Bình Thạnh, TP. HCM</span></div>
+                    </div>
+                    <div class="col-sm-4 col-md-6 col-lg-5">
+                        <h2 class="shop_text">Our Company </h2>
+                        <div class="delivery_text">
+                            <ul>
+                                <li>Delivery</li>
+                                <li>Legal Notice</li>
+                                <li>About us</li>
+                                <li>Secure payment</li>
+                                <li>Contact us</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <h2 class="adderess_text" style="font-size: 17px;">Đăng ký nhận thông báo về sách</h2>
+                        <div class="form-group">
+                            <input type="text" class="enter_email" placeholder="Enter Your email" name="Name">
+                        </div>
+                        <button class="subscribr_bt">Đăng ký</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- section footer end -->
+    <div class="copyright">&copy 2021 - Bản quyền của JustBook - <a style="color: #FFF;" href="#">JustBook.vn</a></div>
+
+
+    <!-- Javascript files-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <script src="~/js/plugin.js"></script>
+    <script src="~/js/quantity_counter.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    <!-- javascript -->
+    <script src="~/js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+
+            $('#myCarousel').carousel({
+                interval: false
+            });
+
+            //scroll slides on swipe for touch enabled devices
+
+            $("#myCarousel").on("touchstart", function (event) {
+
+                var yClick = event.originalEvent.touches[0].pageY;
+                $(this).one("touchmove", function (event) {
+
+                    var yMove = event.originalEvent.touches[0].pageY;
+                    if (Math.floor(yClick - yMove) > 1) {
+                        $(".carousel").carousel('next');
+                    }
+                    else if (Math.floor(yClick - yMove) < -1) {
+                        $(".carousel").carousel('prev');
+                    }
+                });
+                $(".carousel").on("touchend", function () {
+                    $(this).off("touchmove");
+                });
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("datePicker", required: false)
+</body>
+</html>

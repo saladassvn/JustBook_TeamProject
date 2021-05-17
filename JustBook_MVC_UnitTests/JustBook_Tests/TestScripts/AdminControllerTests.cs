@@ -54,7 +54,8 @@ namespace JustBook_Tests.TestScripts.AdminHomeControllerTest
         public void OrderDetail_ShouldReturnDetailOfOrder()
         {
             var controller = new AdminHomeController();
-            var result = controller.OrderDetail(40) as ViewResult;
+            int idDH = 41;
+            var result = controller.OrderDetail(idDH) as ViewResult;
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }

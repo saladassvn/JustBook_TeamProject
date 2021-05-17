@@ -43,24 +43,7 @@ namespace JustBook_Tests.TestScripts
             Assert.AreEqual(result.RouteValues["action"], "Index");
         }
 
-        [TestMethod]
-        public void Index_WithCorrectInputValue_ShouldSearchSucessful()
-        {
-            // Arange
-            PaymentController pay = new PaymentController();
-            DonHang donHang = new DonHang()
-            {
-                MaKH = 1,
-                TenNguoiNhan = "Nguyễn Chí Thành",
-                PhoneNguoiNhan = 123456789,
-                DiaChiNguoiNhan = "TP.HCM",
-                PhuongThucThanhToan = "Tiền mặt"
-            };
-            // Action
-            var result = pay.CreateOrder() as ViewResult;
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-        }
+
     }
 }
 

@@ -82,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestScripts\SearchControllerTests.cs" />
     <Compile Include="TestScripts\ShoppingControllerTests.cs" />
+    <Compile Include="TestScripts\PaymentControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

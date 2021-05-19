@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using JustBook.Models;
+using JustBook.ViewModel;
 
 namespace JustBook.Controllers
 {
@@ -15,7 +16,6 @@ namespace JustBook.Controllers
         {
             db = new DB_CT25Team23Entities();
         }
-
         // GET: Login
         public ActionResult Index()
         {
@@ -41,6 +41,22 @@ namespace JustBook.Controllers
             Session["MaQT"] = accountAdminDetail.MaQT;
             Session["TenQT"] = accountAdminDetail.TenQT;
 
+            //Lấy tổng đơn hàng của người QT quản lý set vào thanh Header
+            IEnumerable<OrderManagementModel> listOfDonHang = (from trangthai in
+            (from trangthai in db.TrangThaiDonHangs
+                orderby trangthai.MaTrangThaiDH descending
+                group trangthai by trangthai.MaDH into grp
+                select grp.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault())
+                join dh in db.DonHangs on trangthai.MaDH equals dh.MaDH
+                orderby dh.MaDH descending
+                select new OrderManagementModel()
+                {
+                    MaDH = dh.MaDH,
+                    ThoiGianTao = dh.ThoiGianTao
+                }
+            ).ToList();
+
+            Session["TotalAdminNotification"] = listOfDonHang.Count();
             return RedirectToAction("Index", "AdminHome");
         }
 
@@ -49,7 +65,6 @@ namespace JustBook.Controllers
         {
             using (DB_CT25Team23Entities db = new DB_CT25Team23Entities())
             {
-                
                 var accountDetail = db.TaiKhoanKHs.Where(acc => acc.Email == accountModel.Email && acc.MatKhau == accountModel.MatKhau).FirstOrDefault();
                 if(accountDetail == null)
                 {
@@ -58,12 +73,31 @@ namespace JustBook.Controllers
                 }
                 else
                 {
+                    int MaKH = accountDetail.MaKH;
+
                     Session["MaKH"] = accountDetail.MaKH;
                     Session["TenKH"] = accountDetail.TenKH;
                     Session["Phone"] = accountDetail.Phone;
                     Session["DiaChi"] = accountDetail.DiaChi;
 
-                    int MaKH = accountDetail.MaKH;
+                    //Lấy tổng đơn hàng của KH set vào thanh Header
+                    IEnumerable<OrderManagementModel> listOfDonHang = (from trangthai in
+                       (from trangthai in db.TrangThaiDonHangs
+                        group trangthai by trangthai.MaDH into grp
+                        select grp.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault())
+                            join dh in db.DonHangs on trangthai.MaDH equals dh.MaDH
+                            join chitiet in db.ChiTietDonHangs on dh.MaDH equals chitiet.MaDonHang
+                            join sp in db.SanPhams on chitiet.MaSP equals sp.MaSP
+                            where dh.MaKH == MaKH
+                            orderby dh.MaDH descending
+                            select new OrderManagementModel()
+                            {
+                                MaDH = dh.MaDH,
+                                ThoiGianTao = dh.ThoiGianTao
+                            }
+                        ).GroupBy(x => x.MaDH).Select(i => i.FirstOrDefault()).ToList();
+
+                    Session["TotalNotification"] = listOfDonHang.Count();
 
                     if (Session["CartItem"] != null)
                     {
@@ -80,7 +114,6 @@ namespace JustBook.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-
             }
         }
 

@@ -107,7 +107,7 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderDetail()
+        public ActionResult OrderDetail(int idDH)
         {
             var currentId_Url = Url.RequestContext.RouteData.Values["id"];
 

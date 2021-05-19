@@ -33,10 +33,10 @@ namespace JustBook.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateOrder(int MaKH, string TenNguoiNhan, int PhoneNguoiNhan, string DiaChiNguoiNhan, string PhuongThucThanhToan)
+        public JsonResult CreateOrder(string TenNguoiNhan, int PhoneNguoiNhan, string DiaChiNguoiNhan, string PhuongThucThanhToan)
         {
             int MaDH = 0;
-            MaKH = Int32.Parse(Session["MaKH"].ToString());
+            int MaKH = Int32.Parse(Session["MaKH"].ToString());
             listOfshoppingCartModels = Session["CartItem"] as List<ShoppingCartModel>;
             GioHang giohang = db.GioHangs.FirstOrDefault(model => model.MaKH == MaKH);
 

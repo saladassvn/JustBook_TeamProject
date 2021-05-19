@@ -1088,6 +1088,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminHomeController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1206,6 +1208,7 @@
     <Content Include="Views\Login\AdminLogin.cshtml" />
     <Content Include="Views\AdminHome\OrderDetail.cshtml" />
     <Content Include="Views\Shopping\CategoriesList.cshtml" />
+    <Content Include="Views\AdminHome\EditProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

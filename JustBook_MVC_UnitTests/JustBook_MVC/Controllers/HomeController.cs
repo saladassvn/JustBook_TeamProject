@@ -26,7 +26,7 @@ namespace JustBook.Controllers
                 int MaKH = Int32.Parse(Session["MaKH"].ToString());
                 int MaKhachHang = db.GioHangs.Where(x => x.MaKH == MaKH).Select(y => y.MaKH).FirstOrDefault();
 
-                //Sau khi đăng nhập lấy giỏ hàng từ database
+                //Sau khi KH đăng nhập lấy giỏ hàng từ database
                 if (Session["CartItem"] == null && MaKhachHang == MaKH)
                 {
                     GioHang giohang = db.GioHangs.FirstOrDefault(model => model.MaKH == MaKH);
@@ -56,9 +56,11 @@ namespace JustBook.Controllers
                     Session["CartItem"] = listOfshoppingCartModels;
                     Session["CartCounter"] = TongSoLuongMua;
 
-                    return View(listOfshoppingCartModels);
+                    return View();
                 }
+                return View();
             }
+
             return View();
         }
     }

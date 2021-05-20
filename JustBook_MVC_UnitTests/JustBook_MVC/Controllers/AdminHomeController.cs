@@ -104,7 +104,8 @@ namespace JustBook.Controllers
                     TrangThaiDonHang = trangthai.TrangThai
                 }
             ).ToList();
-            return View(listOfDonHang);
+            var listAfterDescending = listOfDonHang.OrderByDescending(x => x.MaDH).ToList();
+            return View(listAfterDescending);
         }
 
         public ActionResult OrderDetail(int idDH)

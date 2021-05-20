@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestScripts\AdminControllerTests.cs" />
+    <Compile Include="TestScripts\CartControllerTest.cs" />
     <Compile Include="TestScripts\LoginControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestScripts\SearchControllerTests.cs" />

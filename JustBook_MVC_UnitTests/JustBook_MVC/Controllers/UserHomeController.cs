@@ -104,9 +104,9 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderUserDetail()
+        public ActionResult OrderUserDetail(int id)
         {
-            var currentId_Url = Url.RequestContext.RouteData.Values["id"];
+            var currentId_Url = id;
 
             OrderManagementModel dh_model_url = new OrderManagementModel();
             DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH.ToString() == currentId_Url.ToString());
@@ -147,9 +147,9 @@ namespace JustBook.Controllers
             return View(dh_model_url);
         }
 
-        public ActionResult TrackingState()
+        public ActionResult TrackingState(int id)
         {
-            var currentId_Url = Url.RequestContext.RouteData.Values["id"];
+            var currentId_Url = id;
 
             OrderManagementModel dh_model_url = new OrderManagementModel();
             DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH.ToString() == currentId_Url.ToString());

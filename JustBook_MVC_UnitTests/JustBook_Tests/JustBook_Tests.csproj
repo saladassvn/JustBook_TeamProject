@@ -84,6 +84,7 @@
     <Compile Include="TestScripts\SearchControllerTests.cs" />
     <Compile Include="TestScripts\ShoppingControllerTests.cs" />
     <Compile Include="TestScripts\PaymentControllerTest.cs" />
+    <Compile Include="TestScripts\RegisterControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

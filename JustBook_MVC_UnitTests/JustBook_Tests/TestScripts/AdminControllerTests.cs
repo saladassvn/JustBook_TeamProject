@@ -10,11 +10,26 @@ namespace JustBook_Tests.TestScripts
     {
 
         [TestMethod]
-        public void GetIndex_ShouldReturnIndexView()
+        public void GetIndex_WithMaQTNotNull_ShouldReturnRedirectToRouteResult()
         {
             var controller = new AdminHomeController();
+            var controllerContext = new Mock<ControllerContext>();
+            var mockSession = new Mock<System.Web.HttpSessionStateBase>();
+            controllerContext.Setup(p => p.HttpContext.Session["MaQT"]).Returns("4");
+            controller.ControllerContext = controllerContext.Object;
             var result = controller.Index() as ViewResult;
-            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+        [TestMethod]
+        public void GetIndex_WithMaQTNull_ShouldReturnRedirectToRouteResult()
+        {
+            var controller = new AdminHomeController();
+            var controllerContext = new Mock<ControllerContext>();
+            var mockSession = new Mock<System.Web.HttpSessionStateBase>();
+            controllerContext.Setup(p => p.HttpContext.Session["MaQT"]).Returns(null);
+            controller.ControllerContext = controllerContext.Object;
+            var result = controller.Index() as RedirectToRouteResult;
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
         }
         [TestMethod]
         public void AdminAccount_ShouldReturnAdminInfo()
@@ -42,15 +57,6 @@ namespace JustBook_Tests.TestScripts
             var controller = new AdminHomeController();
             var result = controller.getInfo("IT-02");
             Assert.IsInstanceOfType(result, typeof(JsonResult));
-        }
-        [TestMethod]
-        public void OrderDetail_ShouldReturnDetailOfOrder()
-        {
-            var controller = new AdminHomeController();
-            int idDH = 41;
-            var result = controller.OrderDetail(idDH) as ViewResult;
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
         [TestMethod]
         public void AddProduct_ShouldReturnViewOfAddProduct()

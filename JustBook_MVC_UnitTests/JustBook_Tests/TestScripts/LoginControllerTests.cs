@@ -14,7 +14,7 @@ namespace JustBook_Tests
         //Cach dat ten Test Method:
         // TenHam_DieuKien_KetQua
         [TestMethod]
-        public void Verify_WithCorrectInputValue_ShouldLoginSucessfull()
+        public void Verify_WithCorrectInputValue_ShouldLoginSucessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -40,7 +40,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void Verify_WithWrongPasswordInputValue_ShouldLoginUnsuccessfull()
+        public void Verify_WithWrongPasswordInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -64,7 +64,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void Verify_WithWrongEmailInputValue_ShouldLoginUnsuccessfull()
+        public void Verify_WithWrongEmailInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -88,7 +88,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void Verify_WithWrongEmailInputAndPasswordInputValue_ShouldLoginUnsuccessfull()
+        public void Verify_WithWrongEmailInputAndPasswordInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -112,7 +112,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void AdminVerify_WithCorrectInputValue_ShouldLoginSucessfull()
+        public void AdminVerify_WithCorrectInputValue_ShouldLoginSucessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -134,7 +134,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void AdminVerify_WithWrongPasswordInputValue_ShouldLoginUnsuccessfull()
+        public void AdminVerify_WithWrongPasswordInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -158,7 +158,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void AdminVerify_WithWrongEmailInputValue_ShouldLoginUnsuccessfull()
+        public void AdminVerify_WithWrongEmailInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();
@@ -182,7 +182,7 @@ namespace JustBook_Tests
         }
 
         [TestMethod]
-        public void AdminVerify_WithWrongEmailAndPasswordInputValue_ShouldLoginUnsuccessfull()
+        public void AdminVerify_WithWrongEmailAndPasswordInputValue_ShouldLoginUnsuccessful()
         {
             // Arange
             LoginController loginController = new LoginController();

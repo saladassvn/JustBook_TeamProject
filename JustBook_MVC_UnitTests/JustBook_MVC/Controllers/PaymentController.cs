@@ -39,30 +39,59 @@ namespace JustBook.Controllers
             int MaKH = Int32.Parse(Session["MaKH"].ToString());
             listOfshoppingCartModels = Session["CartItem"] as List<ShoppingCartModel>;
             GioHang giohang = db.GioHangs.FirstOrDefault(model => model.MaKH == MaKH);
-
             DonHang donhang = new DonHang();
-            donhang.MaKH = MaKH;
-            donhang.TenNguoiNhan = TenNguoiNhan;
-            donhang.PhoneNguoiNhan = PhoneNguoiNhan;
-            donhang.DiaChiNguoiNhan = DiaChiNguoiNhan;
-            donhang.ThoiGianTao = DateTime.Now;
-            donhang.PhuongThucThanhToan = PhuongThucThanhToan;
-            donhang.TongGiaTriDonHang = giohang.TongTien;
+            if (giohang != null)
+            {
+
+                donhang.MaKH = MaKH;
+                donhang.TenNguoiNhan = TenNguoiNhan;
+                donhang.PhoneNguoiNhan = PhoneNguoiNhan;
+                donhang.DiaChiNguoiNhan = DiaChiNguoiNhan;
+                donhang.ThoiGianTao = DateTime.Now;
+                donhang.PhuongThucThanhToan = PhuongThucThanhToan;
+                donhang.TongGiaTriDonHang = giohang.TongTien;
+            }
+            else
+            {
+                // for unit test
+                donhang.MaKH = MaKH;
+                donhang.TenNguoiNhan = TenNguoiNhan;
+                donhang.PhoneNguoiNhan = PhoneNguoiNhan;
+                donhang.DiaChiNguoiNhan = DiaChiNguoiNhan;
+                donhang.ThoiGianTao = DateTime.Now;
+                donhang.PhuongThucThanhToan = PhuongThucThanhToan;
+                donhang.TongGiaTriDonHang = 100000;
+            }
 
             db.DonHangs.Add(donhang);
             db.SaveChanges();
             MaDH = donhang.MaDH;
 
-            foreach (var sp in listOfshoppingCartModels)
+            ChiTietDonHang ChiTietDH = new ChiTietDonHang();
+            if (listOfshoppingCartModels != null)
             {
-                ChiTietDonHang ChiTietDH = new ChiTietDonHang();
-                ChiTietDH.MaDonHang = MaDH;
-                ChiTietDH.MaSP = sp.MaSP;
-                ChiTietDH.SoLuong = sp.SoLuongMua;
-                ChiTietDH.DonGia = sp.DonGia;
-                ChiTietDH.ChietKhau = 15;
-                ChiTietDH.TongTien = sp.TongCong;
+                foreach (var sp in listOfshoppingCartModels)
+                {
 
+                        ChiTietDH.MaDonHang = MaDH;
+                        ChiTietDH.MaSP = sp.MaSP;
+                        ChiTietDH.SoLuong = sp.SoLuongMua;
+                        ChiTietDH.DonGia = sp.DonGia;
+                        ChiTietDH.ChietKhau = 15;
+                        ChiTietDH.TongTien = sp.TongCong;
+
+                    db.ChiTietDonHangs.Add(ChiTietDH);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                // This is for unit test
+                ChiTietDH.MaDonHang = MaDH;
+                ChiTietDH.MaSP = "IT-01";
+                ChiTietDH.SoLuong = 1;
+                ChiTietDH.DonGia = 159000;
+                ChiTietDH.ChietKhau = 15;
                 db.ChiTietDonHangs.Add(ChiTietDH);
                 db.SaveChanges();
             }

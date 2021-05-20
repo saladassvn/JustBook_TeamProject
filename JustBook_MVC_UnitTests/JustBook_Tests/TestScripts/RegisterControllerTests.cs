@@ -47,7 +47,6 @@ namespace JustBook_Tests.TestScripts
             DateTime birth = new DateTime(2018, 7, 24);
             TaiKhoanKH model = new TaiKhoanKH()
             {
-                //Sau khi chay unit test nay roi thi phai thay doi email thanh email khac
                 Email = "dat123@gmail.com",
                 MatKhau = "123456",
                 XacNhanMatKhau = "123456",

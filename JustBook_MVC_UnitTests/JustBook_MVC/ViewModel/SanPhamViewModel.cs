@@ -24,6 +24,7 @@ namespace JustBook.ViewModel
         public string TrangThai { get; set; }
         public HttpPostedFileBase ImagePath { get; set; }
         public string ImageLink { get; set; }
+        public string ImageName { get; set; }
 
         public IEnumerable<SelectListItem> CategorySelectListItem { get; set; }
     }

@@ -83,11 +83,11 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderManagement()
+        public ActionResult OrderManagement(string searching)
         {
             IEnumerable<OrderManagementModel> listOfDonHang = (from trangthai in 
-                (from trangthai in db.TrangThaiDonHangs
-                    orderby trangthai.MaTrangThaiDH descending 
+                (from trangthai in db.TrangThaiDonHangs.Where(x => x.TrangThai.Contains(searching) || searching == null).ToList()
+                 orderby trangthai.MaTrangThaiDH descending 
                     group trangthai by trangthai.MaDH into grp
                     select grp.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault())
                     join dh in db.DonHangs on trangthai.MaDH equals dh.MaDH

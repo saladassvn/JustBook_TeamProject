@@ -47,7 +47,8 @@ namespace JustBook_Tests.TestScripts
         public void OrderManagement_ShouldReturnOrdersList()
         {
             var adminHomeController = new AdminHomeController();
-            var result = adminHomeController.OrderManagement();
+            string dh = "";
+            var result = adminHomeController.OrderManagement(dh);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNotNull(result);
         }

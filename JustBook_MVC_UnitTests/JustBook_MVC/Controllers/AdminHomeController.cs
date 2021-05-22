@@ -83,11 +83,11 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderManagement(string searching)
+        public ActionResult OrderManagement()
         {
             IEnumerable<OrderManagementModel> listOfDonHang = (from trangthai in 
-                (from trangthai in db.TrangThaiDonHangs.Where(x => x.TrangThai.Contains(searching) || searching == null).ToList()
-                 orderby trangthai.MaTrangThaiDH descending 
+                (from trangthai in db.TrangThaiDonHangs
+                    orderby trangthai.MaTrangThaiDH descending 
                     group trangthai by trangthai.MaDH into grp
                     select grp.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault())
                     join dh in db.DonHangs on trangthai.MaDH equals dh.MaDH
@@ -104,16 +104,16 @@ namespace JustBook.Controllers
                     TrangThaiDonHang = trangthai.TrangThai
                 }
             ).ToList();
-            var listAfterDescending = listOfDonHang.OrderByDescending(x => x.MaDH).ToList();
-            return View(listAfterDescending);
+            return View(listOfDonHang);
         }
 
-        public ActionResult OrderDetail(int idDH)
+        [HttpGet]
+        public ActionResult OrderDetail(int id)
         {
-            var currentId_Url = Url.RequestContext.RouteData.Values["id"];
+            int MaDH = id;
 
             OrderManagementModel dh_model_url = new OrderManagementModel();
-            DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH.ToString() == currentId_Url.ToString());
+            DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH == MaDH);
             TrangThaiDonHang trangthai = db.TrangThaiDonHangs.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault(model => model.MaDH == dh.MaDH);
 
             var ListOfChiTietDH = db.ChiTietDonHangs.Where(model => model.MaDonHang == dh.MaDH).ToList();
@@ -261,24 +261,22 @@ namespace JustBook.Controllers
             return Json(new { Success = true, Message = "Xóa đơn hàng #" + MaDH + " thành công." }, JsonRequestBehavior.AllowGet);
         }
 
-
-        public ActionResult ProductManagement(string searching)
+        public ActionResult ProductManagement()
         {
-            var listOfSanPham = (from sanpham in db.SanPhams.Where(x => x.TenSP.Contains(searching) || searching == null).ToList()
-                                 join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
-                                 select new SanPhamViewModel()
-                                 {
-                                     MaSP = sanpham.MaSP,
-                                     TenSP = sanpham.TenSP,
-                                     DanhMuc = loai_sp.TenLoaiSP,
-                                     TacGia = sanpham.TacGia,
-                                     DonGia = sanpham.DonGia,
-                                     SoLuong = sanpham.SoLuong,
-                                     TrangThai = sanpham.TrangThai
-                                 }
+            IEnumerable<SanPhamViewModel> listOfSanPham = (from sanpham in db.SanPhams
+                    join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
+                    select new SanPhamViewModel()
+                    {
+                        MaSP = sanpham.MaSP,
+                        TenSP = sanpham.TenSP,
+                        DanhMuc = loai_sp.TenLoaiSP,
+                        TacGia = sanpham.TacGia,
+                        DonGia = sanpham.DonGia,
+                        SoLuong = sanpham.SoLuong,
+                        TrangThai = sanpham.TrangThai
+                    }
             ).ToList();
             return View(listOfSanPham);
-
         }
 
         [HttpGet]
@@ -423,8 +421,16 @@ namespace JustBook.Controllers
                     }
 
                     //Save as image mới vào folder ImageProduct
-                    NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
-                    sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    if (sp_viewmodel.ImageName != "")
+                    {
+                        NewImage = sp_viewmodel.ImageName;
+                        sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    }
+                    else
+                    {
+                        NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
+                        sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    }
                 }
                 
                 SanPham sp = db.SanPhams.FirstOrDefault(x => x.MaSP == sp_viewmodel.MaSP);

@@ -107,12 +107,13 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderDetail()
+        [HttpGet]
+        public ActionResult OrderDetail(int id)
         {
-            var currentId_Url = Url.RequestContext.RouteData.Values["id"];
+            int MaDH = id;
 
             OrderManagementModel dh_model_url = new OrderManagementModel();
-            DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH.ToString() == currentId_Url.ToString());
+            DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH == MaDH);
             TrangThaiDonHang trangthai = db.TrangThaiDonHangs.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault(model => model.MaDH == dh.MaDH);
 
             var ListOfChiTietDH = db.ChiTietDonHangs.Where(model => model.MaDonHang == dh.MaDH).ToList();
@@ -420,8 +421,16 @@ namespace JustBook.Controllers
                     }
 
                     //Save as image mới vào folder ImageProduct
-                    NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
-                    sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    if (sp_viewmodel.ImageName != "")
+                    {
+                        NewImage = sp_viewmodel.ImageName;
+                        sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    }
+                    else
+                    {
+                        NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
+                        sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                    }
                 }
                 
                 SanPham sp = db.SanPhams.FirstOrDefault(x => x.MaSP == sp_viewmodel.MaSP);

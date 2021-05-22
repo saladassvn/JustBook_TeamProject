@@ -6,7 +6,7 @@ using JustBook.Models;
 using System.Web.Mvc;
 using Moq;
 
-namespace JustBook_Tests
+namespace JustBook_Tests.TestScripts
 {
     [TestClass]
     public class LoginControllerTest

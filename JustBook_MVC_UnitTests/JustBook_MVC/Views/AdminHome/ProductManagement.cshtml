@@ -51,6 +51,13 @@
                 <span class="fas fa-plus-circle"></span>
                 Thêm mới sản phẩm
             </a>
+            <form class="form-inline">
+                @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                {
+                    @Html.TextBox("searching", null, new { @placeholder = "Tìm kiếm sản phẩm...", @style = "width: 350px !important; color: black; border-radius: 4px; margin-right: 10px;" });
+                    <button class="w3-button w3-red" type="submit" value="Search" formaction="@Url.Action("ProductManagement", "AdminHome")" Search">Search</button>
+                }
+            </form>
         </div>
         <div class="admin-orderlist">
             <div class="orderlist-table">

@@ -77,7 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestScripts\AdminControllerTests.cs" />
+    <Compile Include="TestScripts\AdminHomeControllerTests.cs" />
     <Compile Include="TestScripts\CartControllerTest.cs" />
     <Compile Include="TestScripts\LoginControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="TestScripts\ShoppingControllerTests.cs" />
     <Compile Include="TestScripts\PaymentControllerTest.cs" />
     <Compile Include="TestScripts\RegisterControllerTests.cs" />
+    <Compile Include="TestScripts\UserHomeControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

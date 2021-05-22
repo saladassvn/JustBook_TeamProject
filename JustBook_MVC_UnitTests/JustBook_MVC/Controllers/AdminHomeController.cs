@@ -261,22 +261,24 @@ namespace JustBook.Controllers
             return Json(new { Success = true, Message = "Xóa đơn hàng #" + MaDH + " thành công." }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ProductManagement()
+
+        public ActionResult ProductManagement(string searching)
         {
-            IEnumerable<SanPhamViewModel> listOfSanPham = (from sanpham in db.SanPhams
-                    join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
-                    select new SanPhamViewModel()
-                    {
-                        MaSP = sanpham.MaSP,
-                        TenSP = sanpham.TenSP,
-                        DanhMuc = loai_sp.TenLoaiSP,
-                        TacGia = sanpham.TacGia,
-                        DonGia = sanpham.DonGia,
-                        SoLuong = sanpham.SoLuong,
-                        TrangThai = sanpham.TrangThai
-                    }
+            var listOfSanPham = (from sanpham in db.SanPhams.Where(x => x.TenSP.Contains(searching) || searching == null).ToList()
+                                 join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
+                                 select new SanPhamViewModel()
+                                 {
+                                     MaSP = sanpham.MaSP,
+                                     TenSP = sanpham.TenSP,
+                                     DanhMuc = loai_sp.TenLoaiSP,
+                                     TacGia = sanpham.TacGia,
+                                     DonGia = sanpham.DonGia,
+                                     SoLuong = sanpham.SoLuong,
+                                     TrangThai = sanpham.TrangThai
+                                 }
             ).ToList();
             return View(listOfSanPham);
+
         }
 
         [HttpGet]

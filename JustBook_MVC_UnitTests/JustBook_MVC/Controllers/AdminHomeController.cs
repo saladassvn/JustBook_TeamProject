@@ -319,8 +319,19 @@ namespace JustBook.Controllers
             }
             else
             {
-                string NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
-                sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                string NewImage = "";
+
+                //Save as image mới vào folder ImageProduct
+                if (sp_viewmodel.ImageName != "")
+                {
+                    NewImage = sp_viewmodel.ImageName;
+                    sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                }
+                else
+                {
+                    NewImage = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
+                    sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
+                }
 
                 SanPham sp = new SanPham();
                 sp.ImagePath = "~/ImageProduct/" + NewImage;

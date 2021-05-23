@@ -43,7 +43,8 @@ namespace JustBook_Tests.TestScripts.AdminHomeControllerTest
         public void OrderManagement_ShouldReturnOrdersList()
         {
             var adminHomeController = new AdminHomeController();
-            var result = adminHomeController.OrderManagement();
+            string searching = "Chờ xác nhận";
+            var result = adminHomeController.OrderManagement(searching);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNotNull(result);
         }
@@ -73,6 +74,187 @@ namespace JustBook_Tests.TestScripts.AdminHomeControllerTest
             var result = controller.AddProduct() as ViewResult;
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void AddProduct_WithCorrectInputValue_ShouldAddProductSuccessful()
+        {
+            var controller = new AdminHomeController();
+
+            //Thiết lập path và thuộc tính của Image
+            var contentType = "image/jpg";
+            var fileName = "123.jpg";
+            string path = "C:\\Users\\Cong\\Pictures\\123.jpg";
+            Image img = Image.FromFile(path);
+
+            //ImageConverter Class convert Image object to Byte array.
+            byte[] byteArray = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
+            MemoryStream stream = new MemoryStream(byteArray);
+            MemoryFile imageFile = new MemoryFile(stream, contentType, fileName);
+
+            SanPhamViewModel sp_viewmodel = new SanPhamViewModel
+            {
+                MaSP = "add-test",
+                MaLoaiSP = 2,
+                TenSP = "test sách",
+                TacGia = "tester",
+                NXB = "HCM",
+                DonGia = 109000,
+                MoTa = "Test add hình",
+                SoLuong = 12,
+                SoTrang = 123,
+                TrongLuong = "2",
+                KichThuoc = "12",
+                LoaiBia = "Bìa cứng",
+                ImagePath = imageFile
+            };
+
+            var imageName = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
+            sp_viewmodel.ImageName = imageName;
+
+            //create mock of HttpServerUtilityBase
+            var server = new Mock<HttpServerUtilityBase>();
+            var httpContextMock = new Mock<HttpContextBase>();
+
+            //set up mock to return known value on call.
+            server.Setup(x => x.MapPath("~/ImageProduct/")).Returns("D:\\JustBook_UnitTest\\JustBook_TeamProject\\JustBook_MVC_UnitTests\\JustBook_MVC\\ImageProduct");
+            server.Setup(x => x.MapPath("~/ImageProduct/" + imageName)).Returns("D:\\JustBook_UnitTest\\JustBook_TeamProject\\JustBook_MVC_UnitTests\\JustBook_MVC\\ImageProduct\\" + imageName);
+            httpContextMock.Setup(x => x.Server).Returns(server.Object);
+
+            var mock = new Mock<ControllerContext>();
+            var mockSession = new Mock<System.Web.HttpSessionStateBase>();
+            mock.Setup(p => p.HttpContext.Session).Returns(mockSession.Object);
+            controller.ControllerContext = mock.Object;
+
+            // Action
+            controller.ControllerContext = new ControllerContext(httpContextMock.Object, new RouteData(), controller);
+            var result = controller.AddProduct(sp_viewmodel) as JsonResult;
+
+            // Assert
+            dynamic jsonResult = result.Data;
+            var success_data = result.Data.GetType().GetProperty("Success").GetValue(jsonResult, null);
+            var message_data = result.Data.GetType().GetProperty("Message").GetValue(jsonResult, null);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(true, success_data);
+            Assert.AreEqual("Sản phẩm đã được thêm mới thành công.", message_data);
+        }
+        
+        
+        [TestMethod]
+        public void AddProduct_WithExistID_ShouldAddProductUnsuccessful()
+        {
+            var controller = new AdminHomeController();
+
+            //Thiết lập path và thuộc tính của Image
+            var contentType = "image/jpg";
+            var fileName = "123.jpg";
+            string path = "C:\\Users\\Cong\\Pictures\\123.jpg";
+            Image img = Image.FromFile(path);
+
+            //ImageConverter Class convert Image object to Byte array.
+            byte[] byteArray = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
+            MemoryStream stream = new MemoryStream(byteArray);
+            MemoryFile imageFile = new MemoryFile(stream, contentType, fileName);
+
+            SanPhamViewModel sp_viewmodel = new SanPhamViewModel
+            {
+                MaSP = "test",
+                MaLoaiSP = 2,
+                TenSP = "test sách",
+                TacGia = "tester",
+                NXB = "HCM",
+                DonGia = 109000,
+                MoTa = "Test add hình",
+                SoLuong = 12,
+                SoTrang = 123,
+                TrongLuong = "2",
+                KichThuoc = "12",
+                LoaiBia = "Bìa cứng",
+                ImagePath = imageFile
+            };
+
+            var imageName = sp_viewmodel.MaSP + "_" + DateTime.Now.ToFileTime() + Path.GetExtension(sp_viewmodel.ImagePath.FileName);
+            sp_viewmodel.ImageName = imageName;
+
+            //create mock of HttpServerUtilityBase
+            var server = new Mock<HttpServerUtilityBase>();
+            var httpContextMock = new Mock<HttpContextBase>();
+
+            //set up mock to return known value on call.
+            server.Setup(x => x.MapPath("~/ImageProduct/")).Returns("D:\\JustBook_UnitTest\\JustBook_TeamProject\\JustBook_MVC_UnitTests\\JustBook_MVC\\ImageProduct");
+            server.Setup(x => x.MapPath("~/ImageProduct/" + imageName)).Returns("D:\\JustBook_UnitTest\\JustBook_TeamProject\\JustBook_MVC_UnitTests\\JustBook_MVC\\ImageProduct\\" + imageName);
+            httpContextMock.Setup(x => x.Server).Returns(server.Object);
+
+            var mock = new Mock<ControllerContext>();
+            var mockSession = new Mock<System.Web.HttpSessionStateBase>();
+            mock.Setup(p => p.HttpContext.Session).Returns(mockSession.Object);
+            controller.ControllerContext = mock.Object;
+
+            // Action
+            controller.ControllerContext = new ControllerContext(httpContextMock.Object, new RouteData(), controller);
+            var result = controller.AddProduct(sp_viewmodel) as JsonResult;
+
+            // Assert
+            dynamic jsonResult = result.Data;
+            var success_data = result.Data.GetType().GetProperty("Success").GetValue(jsonResult, null);
+            var message_data = result.Data.GetType().GetProperty("Message").GetValue(jsonResult, null);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(false, success_data);
+            Assert.AreEqual("Mã sản phẩm đã tồn tại", message_data);
+        }
+
+        [TestMethod]
+        public void AddProduct_WithNullInputValue_ShouldAddProductUnsuccessful()
+        {
+            var controller = new AdminHomeController();
+
+            SanPhamViewModel sp_viewmodel = new SanPhamViewModel
+            {
+               
+            };
+
+            // Action
+ 
+            var result = controller.AddProduct(sp_viewmodel) as JsonResult;
+
+            // Assert
+            dynamic jsonResult = result.Data;
+            var success_data = result.Data.GetType().GetProperty("Success").GetValue(jsonResult, null);
+            var message_data = result.Data.GetType().GetProperty("Message").GetValue(jsonResult, null);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(false, success_data);
+            Assert.AreEqual("Vui lòng nhập đầy đủ thông tin.", message_data);
+        }
+
+        [TestMethod]
+        public void DeleteProduct_ShouldDeleteProductSuccessful()
+        {
+            var controller = new AdminHomeController();
+            string MaSP = "add-test";
+
+            //create mock of HttpServerUtilityBase
+            var server = new Mock<HttpServerUtilityBase>();
+            var httpContextMock = new Mock<HttpContextBase>();
+
+            //set up mock to return known value on call.
+            server.Setup(x => x.MapPath("~/ImageProduct/")).Returns("D:\\JustBook_UnitTest\\JustBook_TeamProject\\JustBook_MVC_UnitTests\\JustBook_MVC\\ImageProduct");
+            httpContextMock.Setup(x => x.Server).Returns(server.Object);
+
+            // Action
+            controller.ControllerContext = new ControllerContext(httpContextMock.Object, new RouteData(), controller);
+            var result = controller.DeleteProduct(MaSP) as JsonResult;
+
+            // Assert
+            dynamic jsonResult = result.Data;
+            var success_data = result.Data.GetType().GetProperty("Success").GetValue(jsonResult, null);
+            var message_data = result.Data.GetType().GetProperty("Message").GetValue(jsonResult, null);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(true, success_data);
+            Assert.AreEqual("Xóa sản phẩm #" + MaSP + " thành công.", message_data);
         }
 
         [TestMethod]
@@ -215,5 +397,6 @@ namespace JustBook_Tests.TestScripts.AdminHomeControllerTest
             Assert.AreEqual(false, success_data);
             Assert.AreEqual("Vui lòng nhập đầy đủ thông tin.", message_data);
         }
+
     }
 }

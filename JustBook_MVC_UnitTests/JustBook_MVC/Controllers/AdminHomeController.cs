@@ -83,11 +83,11 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderManagement()
+        public ActionResult OrderManagement(string searching)
         {
             IEnumerable<OrderManagementModel> listOfDonHang = (from trangthai in 
-                (from trangthai in db.TrangThaiDonHangs
-                    orderby trangthai.MaTrangThaiDH descending 
+                (from trangthai in db.TrangThaiDonHangs.Where(x => x.TrangThai.Contains(searching) || searching == null).ToList()
+                 orderby trangthai.MaTrangThaiDH descending 
                     group trangthai by trangthai.MaDH into grp
                     select grp.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault())
                     join dh in db.DonHangs on trangthai.MaDH equals dh.MaDH
@@ -104,7 +104,8 @@ namespace JustBook.Controllers
                     TrangThaiDonHang = trangthai.TrangThai
                 }
             ).ToList();
-            return View(listOfDonHang);
+            var listAfterDescending = listOfDonHang.OrderByDescending(x => x.MaDH).ToList();
+            return View(listAfterDescending);
         }
 
         [HttpGet]
@@ -261,10 +262,10 @@ namespace JustBook.Controllers
             return Json(new { Success = true, Message = "Xóa đơn hàng #" + MaDH + " thành công." }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ProductManagement()
+        public ActionResult ProductManagement(string searching)
         {
-            IEnumerable<SanPhamViewModel> listOfSanPham = (from sanpham in db.SanPhams
-                    join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
+            IEnumerable<SanPhamViewModel> listOfSanPham = (from sanpham in db.SanPhams.Where(x => x.TenSP.Contains(searching) || searching == null).ToList()
+                                                           join loai_sp in db.LoaiSanPhams on sanpham.MaLoaiSP equals loai_sp.MaLoaiSP
                     select new SanPhamViewModel()
                     {
                         MaSP = sanpham.MaSP,

@@ -107,10 +107,10 @@ namespace JustBook.Controllers
             return View(listOfDonHang);
         }
 
-        public ActionResult OrderDetail(int idDH)
+        public ActionResult OrderDetail(int? idDH)
         {
             var currentId_Url = Url.RequestContext.RouteData.Values["id"];
-
+           
             OrderManagementModel dh_model_url = new OrderManagementModel();
             DonHang dh = db.DonHangs.SingleOrDefault(model => model.MaDH.ToString() == currentId_Url.ToString());
             TrangThaiDonHang trangthai = db.TrangThaiDonHangs.OrderByDescending(x => x.MaTrangThaiDH).FirstOrDefault(model => model.MaDH == dh.MaDH);

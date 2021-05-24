@@ -21,7 +21,7 @@ namespace JustBook_Tests.TestScripts
             TaiKhoanKH model = new TaiKhoanKH()
             {
                 //Sau khi chay unit test nay roi thi phai thay doi email thanh email khac
-                Email = "tad69123@gmail.com",
+                Email = "ta23@gmail.com",
                 MatKhau = "123456",
                 XacNhanMatKhau = "123456",
                 TenKH = "Bui Van Dat",
@@ -37,7 +37,7 @@ namespace JustBook_Tests.TestScripts
             // Action
             var result = registerController.Index(model) as RedirectToRouteResult;
             // Assert
-            Assert.AreEqual(result.RouteValues["action"], "Index");
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult)); ;
         }
         [TestMethod]
         public void Index_WithEmailAlreadyExist_ShouldReturnBackToView()

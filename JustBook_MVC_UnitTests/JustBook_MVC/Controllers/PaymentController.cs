@@ -85,6 +85,10 @@ namespace JustBook.Controllers
                     //Cập nhật số lượng sản phẩm
                     SanPham sanpham = db.SanPhams.FirstOrDefault(model => model.MaSP == sp.MaSP);
                     sanpham.SoLuong -= sp.SoLuongMua;
+                    if(sanpham.SoLuong <= 0)
+                    {
+                        sanpham.SoLuong = 0;
+                    }
                     db.SaveChanges();
                 }
             }

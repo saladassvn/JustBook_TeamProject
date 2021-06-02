@@ -72,15 +72,19 @@ namespace JustBook.Controllers
             {
                 foreach (var sp in listOfshoppingCartModels)
                 {
-
-                        ChiTietDH.MaDonHang = MaDH;
-                        ChiTietDH.MaSP = sp.MaSP;
-                        ChiTietDH.SoLuong = sp.SoLuongMua;
-                        ChiTietDH.DonGia = sp.DonGia;
-                        ChiTietDH.ChietKhau = 15;
-                        ChiTietDH.TongTien = sp.TongCong;
+                    ChiTietDH.MaDonHang = MaDH;
+                    ChiTietDH.MaSP = sp.MaSP;
+                    ChiTietDH.SoLuong = sp.SoLuongMua;
+                    ChiTietDH.DonGia = sp.DonGia;
+                    ChiTietDH.ChietKhau = 15;
+                    ChiTietDH.TongTien = sp.TongCong;
 
                     db.ChiTietDonHangs.Add(ChiTietDH);
+                    db.SaveChanges();
+
+                    //Cập nhật số lượng sản phẩm
+                    SanPham sanpham = db.SanPhams.FirstOrDefault(model => model.MaSP == sp.MaSP);
+                    sanpham.SoLuong -= sp.SoLuongMua;
                     db.SaveChanges();
                 }
             }

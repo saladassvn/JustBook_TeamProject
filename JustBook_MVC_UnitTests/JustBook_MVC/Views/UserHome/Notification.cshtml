@@ -49,17 +49,28 @@
                     <thead>
                     </thead>
                     <tbody>
-                        @foreach (var dh in Model)
+                        @if (Session["TotalNotification"] != null)
                         {
-                            <tr class="order-rows">
-                                <td style="width: 180px;">@dh.ThoiGianTao</td>
-                                <td style="font-size: 12px">
-                                    Đơn hàng <a href="#">#@dh.MaDH</a>
-                                    đã sẵn sàng để giao đến quý khách.
-                                    Đơn hàng sẽ được giao trong vòng 24h kể từ thời gian bắt đầu đặt hàng
-                                    <a href="@Url.Action("OrderHistory", "UserHome")"> Chi tiết</a>
-                                </td>
-                            </tr>
+                            foreach (var dh in Model)
+                            {
+                                <tr class="order-rows">
+                                    <td style="width: 180px;">@dh.ThoiGianTao</td>
+                                    <td style="font-size: 12px">
+                                        Đơn hàng <a href="#">#@dh.MaDH</a>
+                                        đã sẵn sàng để giao đến quý khách.
+                                        Đơn hàng sẽ được giao trong vòng 24h kể từ thời gian bắt đầu đặt hàng
+                                        <a href="@Url.Action("OrderHistory", "UserHome")"> Chi tiết</a>
+                                    </td>
+                                </tr>
+                            }
+                            if (Int32.Parse(Session["TotalNotification"].ToString()) == 0)
+                            {
+                                <div style="padding: 100px; text-align: center;">Hiện tại chưa có thông báo mới.</div>
+                            }
+                        }
+                        else
+                        {
+                            <div style="padding: 50px; text-align: center;">Hiện tại chưa có đơn hàng mới.</div>
                         }
                     </tbody>
                 </table>

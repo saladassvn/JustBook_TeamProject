@@ -322,7 +322,7 @@ namespace JustBook.Controllers
                 string NewImage = "";
 
                 //Save as image mới vào folder ImageProduct
-                if (sp_viewmodel.ImageName != "")
+                if (sp_viewmodel.ImageName != null && sp_viewmodel.ImageName != "")
                 {
                     NewImage = sp_viewmodel.ImageName;
                     sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));
@@ -433,7 +433,7 @@ namespace JustBook.Controllers
                     }
 
                     //Save as image mới vào folder ImageProduct
-                    if (sp_viewmodel.ImageName != "")
+                    if (sp_viewmodel.ImageName != null && sp_viewmodel.ImageName != "")
                     {
                         NewImage = sp_viewmodel.ImageName;
                         sp_viewmodel.ImagePath.SaveAs(Server.MapPath("~/ImageProduct/" + NewImage));

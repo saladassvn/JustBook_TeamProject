@@ -51,12 +51,12 @@
     </div>
     <div class="content-admin-order">
         <div style="font-size: 18px; font-weight: bold; text-align: center">QUẢN LÝ SẢN PHẨM</div>
-        <div style="padding-top: 10px;">
-            <a href="@Url.Action("AddProduct", "AdminHome")" style="color: #337ab7; font-size: 17px;">
+        <div style="padding-top: 10px; display: flex; padding-top: 30px">
+            <a href="@Url.Action("AddProduct", "AdminHome")" style="color: #337ab7; font-size: 17px; width: 100%">
                 <span class="fas fa-plus-circle"></span>
                 Thêm mới sản phẩm
             </a>
-            <form class="form-inline">
+            <form class="form-inline" style=" display: flex; flex-wrap: nowrap;">
                 @using (Html.BeginForm("Index", "Search", FormMethod.Get))
                 {
                     @Html.TextBox("searching", null, new { @placeholder = "Tìm kiếm sản phẩm...", @style = "width: 350px !important; color: black; border-radius: 4px; margin-right: 10px;" });
@@ -93,7 +93,7 @@
                                     </a>
                                 </td>
                                 <td style="text-align: center;">
-                                    <a href="@Url.Action("EditProduct", "AdminHome", new { id = @sanpham.MaSP})">@sanpham.MaSP</a>
+                                    <a href="@Url.Action("EditProduct", "AdminHome", new { id = @sanpham.MaSP})" style="color: #337ab7">@sanpham.MaSP</a>
                                 </td>
                                 <td style="width: 200px;">@sanpham.TenSP</td>
                                 <td>@sanpham.DanhMuc</td>

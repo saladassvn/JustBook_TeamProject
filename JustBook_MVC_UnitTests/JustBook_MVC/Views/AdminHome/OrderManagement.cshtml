@@ -56,7 +56,7 @@
     </div>
     <div class="content-admin-order">
         <div style="font-size: 18px; font-weight: bold; text-align: center">QUẢN LÝ ĐƠN HÀNG</div>
-        <form class="form-inline">
+        <form class="form-inline" style=" display: flex; justify-content: flex-end; padding-top: 30px">
             @using (Html.BeginForm("Index", "Search", FormMethod.Get))
             {
                 @Html.TextBox("searching", null, new { @placeholder = "Nhập trạng thái đơn hàng để tìm kiếm đơn hàng...", @style = "width: 350px !important; color: black; border-radius: 4px; margin-right: 10px;" });
@@ -91,7 +91,7 @@
                                         <button itemid="@dh.MaDH" class="btn btn-danger" onclick="DeleteOrder(this)">Delete</button>
                                     </a>
                                 </td>
-                                <td><a href="@Url.Action("OrderDetail", "AdminHome", new {id = @dh.MaDH})">@dh.MaDH</a></td>
+                                <td><a href="@Url.Action("OrderDetail", "AdminHome", new {id = @dh.MaDH})" style="color: #337ab7">@dh.MaDH</a></td>
                                 <td>@dh.MaKH</td>
                                 <td>@dh.ThoiGianTao</td>
                                 <td>@dh.PhuongThucThanhToan</td>

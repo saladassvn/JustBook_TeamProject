@@ -59,7 +59,7 @@
                     {
                         var giatridonhang = string.Format("{0:#,##0 VND}", dh.TongGiaTriDonHang);
                     <tr class="order-rows">
-                        <td style="text-align: center;"><a href="@Url.Action("OrderUserDetail", "UserHome", new {id = @dh.MaDH})">@dh.MaDH</a></td>
+                        <td style="text-align: center;"><a href="@Url.Action("OrderUserDetail", "UserHome", new {id = @dh.MaDH})" style="color: #337ab7">@dh.MaDH</a></td>
                         <td>@dh.ThoiGianTao</td>
                         <td>@dh.TenSP</td>
                         <td>@giatridonhang</td>

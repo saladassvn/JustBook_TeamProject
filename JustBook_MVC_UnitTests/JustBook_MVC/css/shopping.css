@@ -50,8 +50,7 @@ html {
 }
 
 .grid__column-2-4 {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
     width: 25%;
 }
 

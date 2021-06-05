@@ -7,13 +7,13 @@
 <div class="container">
     <div class="app__container">
         <div class="grid">
-            <div class="grid__row app__content">
-                <div class="grid__column-2">
-                    <nav class="category">
-                        <h3 class="category__heading">
+            <div class="grid__row app__content" style="padding: 0; margin-top: 20px;">
+                <div class="grid__column-2" style="background-color: #FFF;">
+                    <nav class="category" style="border: 1px solid #BEBEBE; border-radius: 4px; ">
+                        <div class="category__heading" style="font-size: 17px; font-weight: bold; padding-bottom: 15px; background-color: #DCDCDC;">
                             <i class="category__heading-icon fas fa-list"></i>
                             Danh mục
-                        </h3>
+                        </div>
 
                         <div class="category-list">
                             @{
@@ -24,8 +24,8 @@
                 </div>
 
                 <div class="grid__column-10">
-                    <div class="home-filter">
-                        <span class="home-filter__label">Sắp xếp theo</span>
+                    <div class="home-filter" style="background-color: #DCDCDC;">
+                        <span class="home-filter__label" style="padding-left: 10px; font-size: 15px;">Sắp xếp theo</span>
                         <button class="home-filter__btn btn">Phổ biến</button>
                         <button class="home-filter__btn btn btn--primary">Mới nhất</button>
                         <button class="home-filter__btn btn">Bán chạy</button>
@@ -36,20 +36,20 @@
                             <!-- List options -->
                             <ul class="select-input__list">
                                 <li class="select-input__item">
-                                    <a href="" class="select-input__link">Giá: Thấp đến cao</a>
+                                    <a href="#" class="select-input__link" style="font-size: 15px; padding-top: 10px">Giá: Thấp đến cao</a>
                                 </li>
                                 <li class="select-input__item">
-                                    <a href="" class="select-input__link">Giá: Cao đến thấp</a>
+                                    <a href="#" class="select-input__link" style="font-size: 15px">Giá: Cao đến thấp</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="home-filter__page">
-                            <span class="home-filter__page-num">
+                            <span class="home-filter__page-num" style="font-size: 15px;">
                                 <span class="home-filter__page-current">1</span>
                                 /7
                             </span>
 
-                            <div class="home-filter__page-control">
+                            <div class="home-filter__page-control" style="width: 50px; height: 25px;">
                                 <a href="" class="home-filter__page-btn home-filter__page-btn--disabled">
                                     <i class="home-filter__page-icon fas fa-angle-left"></i>
                                 </a>
@@ -67,40 +67,28 @@
                             {
                                 var price_old = string.Format("{0:#,##0 VND}", sanpham.DonGia);
                                 var price_new = string.Format("{0:#,##0 VND}", sanpham.DonGia - sanpham.DonGia * 0.15);
-                                <div class="grid__column-2-4">
+                                <div class="grid__column-2-4" style="padding: 20px;">
                                     <!-- Product item -->
-                                    <a class="home-product-item" href="@Url.Action("Detail", "Shopping", new {id = @sanpham.MaSP})" style="height: 390px;">
+                                    <a class="home-product-item" href="@Url.Action("Detail", "Shopping", new {id = @sanpham.MaSP})" style="height: 400px;">
                                         <img class="home-product-item__img" src="@Url.Content(@sanpham.ImagePath)" style="margin-left: 20px;" width="150px" />
-                                        <h4 class="home-product-item__name">@sanpham.TenSP</h4>
+                                        <h4 class="home-product-item__name" style="font-size: 17px; font-weight: bold;">@sanpham.TenSP</h4>
                                         <div class="home-product-item__price">
-                                            <span class="home-product-item__price-old">@price_old</span>
-                                            <span class="home-product-item__price-current">@price_new</span>
+                                            <span class="home-product-item__price-old" style="font-size: 12px;">@price_old</span>
+                                            <span class="home-product-item__price-current" style="font-size: 18px; font-weight: bold;">@price_new</span>
                                         </div>
                                         <div class="home-product-item__action">
-                                            <span class="home-product-item__link home-product-item__link--linked">
-                                                <i class="home-product-item__link-icon-empty far fa-heart"></i>
-                                                <i class="home-product-item__link-icon-fill fas fa-heart"></i>
-                                            </span>
-                                            <div class="home-product-item__rating">
+                                            <div class="home-product-item__rating" style="width: 130px;">
                                                 <i class="home-product-item__star--gold fas fa-star"></i>
                                                 <i class="home-product-item__star--gold fas fa-star"></i>
                                                 <i class="home-product-item__star--gold fas fa-star"></i>
                                                 <i class="home-product-item__star--gold fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                             </div>
-                                            <span class="home-product-item__sold">@sanpham.SoLuong sản phẩm còn lại</span>
+                                            <span class="home-product-item__sold" style="font-size: 12px">@sanpham.SoLuong sản phẩm còn lại</span>
                                         </div>
-                                        <div class="home-product-item__origin">
-                                            <span class="home-product-item__brand">Whoo</span>
-                                            <span class="home-product-item__origin-name">Nhật Bản</span>
-                                        </div>
-                                        <div class="home-product-item__favourite">
-                                            <i class="fas fa-check"></i>
-                                            <span>Yêu thích</span>
-                                        </div>
-                                        <div class="home-product-item__sale-off">
-                                            <span class="home-product-item__sale-off-percent">15%</span>
-                                            <span class="home-product-item__sale-off-label">GIẢM</span>
+                                        <div class="home-product-item__sale-off" style="height: 50px;">
+                                            <span class="home-product-item__sale-off-percent" style="font-size: 16px">15%</span>
+                                            <span class="home-product-item__sale-off-label" style="font-size: 13px;">GIẢM</span>
                                         </div>
                                     </a>
                                 </div>

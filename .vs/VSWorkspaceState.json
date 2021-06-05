@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\JustBook_MVC_UnitTests",
+    "\\JustBook_MVC_UnitTests\\JustBook_MVC"
   ],
+  "SelectedNode": "\\JustBook_MVC_UnitTests\\JustBook_MVC\\JustBook.sln",
   "PreviewInSolutionExplorer": false
 }

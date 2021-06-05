@@ -1,0 +1,2 @@
+C:\JustBook_Publish\saladassvn\JustBook_TeamProject\JustBook_MVC_UnitTests\JustBook_Tests\obj\Release\JustBook_Tests.csproj.AssemblyReference.cache
+C:\JustBook_Publish\saladassvn\JustBook_TeamProject\JustBook_MVC_UnitTests\JustBook_Tests\obj\Release\JustBook_Tests.csproj.CoreCompileInputs.cache

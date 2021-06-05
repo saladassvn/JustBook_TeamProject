@@ -432,6 +432,12 @@
                         $("#" + itemId).text(dongia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
                         $("#" + itemId).attr("data-content", dongia)
                     }
+                    else if (soluong == 0) {
+                        $("input[itemid=" + itemId + "]").val(1);
+                        $("#" + itemId).text(dongia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
+                        $("#" + itemId).attr("data-content", dongia)
+                        alert("Số lượng chỉ còn lại " + 1 + " sản phẩm.");
+                    }
                     else if (quantityItem > soluong) {
                         $("input[itemid=" + itemId + "]").val(soluong);
                         $("#" + itemId).text((soluong * dongia).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));

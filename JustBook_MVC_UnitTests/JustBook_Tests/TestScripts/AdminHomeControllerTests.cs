@@ -397,6 +397,24 @@ namespace JustBook_Tests.TestScripts.AdminHomeControllerTest
             Assert.AreEqual(false, success_data);
             Assert.AreEqual("Vui lòng nhập đầy đủ thông tin.", message_data);
         }
-
+        [TestMethod]
+        public void OrderSaveChanges_WithCorrectValue_ShouldReturnJsonResult()
+        {
+            var controller = new AdminHomeController();
+            var result = controller.OrderSaveChanges(62, "IT-01", "1", "159000", 100000, "null", "Chờ xác nhận");
+            
+            Assert.IsInstanceOfType(result, typeof(JsonResult));
+            Assert.IsNotNull(result);
+        }
+       
+        [TestMethod]
+        public void DeleteOrder_WithValidId_ShouldReturnJsonResult()
+        {
+            var controller = new AdminHomeController();
+            var result = controller.DeleteOrder(46);
+            
+            Assert.IsInstanceOfType(result, typeof(JsonResult));
+            Assert.IsNotNull(result);            
+        }
     }
 }

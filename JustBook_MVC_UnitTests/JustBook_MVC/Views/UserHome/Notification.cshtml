@@ -59,13 +59,9 @@
                                         Đơn hàng <a href="#" style="color: #337ab7">#@dh.MaDH</a>
                                         đã sẵn sàng để giao đến quý khách.
                                         Đơn hàng sẽ được giao trong vòng 24h kể từ thời gian bắt đầu đặt hàng
-                                        <a href="@Url.Action("OrderHistory", "UserHome")" style="color: #337ab7"> Chi tiết</a>
+                                        <a href="@Url.Action("OrderHistory", "UserHome")" style="color: #337ab7"> Lịch sử đơn hàng</a>
                                     </td>
                                 </tr>
-                            }
-                            if (Int32.Parse(Session["TotalNotification"].ToString()) == 0)
-                            {
-                                <div style="padding: 100px; text-align: center;">Hiện tại chưa có thông báo mới.</div>
                             }
                         }
                         else

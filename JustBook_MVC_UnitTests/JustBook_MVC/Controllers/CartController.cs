@@ -30,6 +30,7 @@ namespace JustBook.Controllers
                     MaKH = Int32.Parse(Session["MaKH"].ToString());
                 }
 
+                //Khi KH đăng nhập nếu có giỏ hàng bên ngoài sẽ tự động chuyển vào db giỏ hàng của KH.
                 if (Session["MaKH"] != null && !db.GioHangs.Any(gh => gh.MaKH == MaKH))
                 {
                     int MaGH = 0;
@@ -72,11 +73,7 @@ namespace JustBook.Controllers
                         Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
                         Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
                     }
-
-                    int CartCounter = TongSoLuongMua;
-                    string CartTotal = Session["TongCong"].ToString();
-                    string CartTotal_temp = Session["TongCong_temp"].ToString();
-                    Session["CartCounter"] = CartCounter;
+                    Session["CartCounter"] = TongSoLuongMua;
                     Session["CartItem"] = listOfshoppingCartModels;
 
                     return View(listOfshoppingCartModels);
@@ -93,8 +90,6 @@ namespace JustBook.Controllers
                         Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
                         Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
                     }
-
-                    int CartCounter = TongSoLuongMua;
                     Session["CartCounter"] = TongSoLuongMua;
                     Session["CartItem"] = listOfshoppingCartModels;
 
@@ -227,6 +222,12 @@ namespace JustBook.Controllers
                     db.ChiTietGioHangs.Add(ChiTietGH);
                     db.SaveChanges();
                 }
+
+                //Điền thông tin KH vào ô thông tin giao hàng
+                TaiKhoanKH KH = db.TaiKhoanKHs.Single(model => model.MaKH == MaKH);
+                Session["TenKH"] = KH.TenKH;
+                Session["Phone"] = KH.Phone;
+                Session["DiaChi"] = KH.DiaChi;
             }
 
             return Json(new { Success = true, Counter = CartCounter, TotalPrice = CartTotal, TotalPrice_temp = CartTotal_temp, Message = message }, JsonRequestBehavior.AllowGet);
@@ -362,6 +363,12 @@ namespace JustBook.Controllers
                     db.ChiTietGioHangs.Add(ChiTietGH);
                     db.SaveChanges();
                 }
+
+                //Điền thông tin KH vào ô thông tin giao hàng
+                TaiKhoanKH KH = db.TaiKhoanKHs.Single(model => model.MaKH == MaKH);
+                Session["TenKH"] = KH.TenKH;
+                Session["Phone"] = KH.Phone;
+                Session["DiaChi"] = KH.DiaChi;
             }
 
             return Json(new { Success = true, Counter = CartCounter, TotalPrice = CartTotal, TotalPrice_temp = CartTotal_temp, Message = message }, JsonRequestBehavior.AllowGet);
@@ -450,6 +457,12 @@ namespace JustBook.Controllers
                         db.ChiTietGioHangs.Add(ChiTietGH);
                         db.SaveChanges();
                     }
+
+                    //Điền thông tin KH vào ô thông tin giao hàng
+                    TaiKhoanKH KH = db.TaiKhoanKHs.Single(model => model.MaKH == MaKH);
+                    Session["TenKH"] = KH.TenKH;
+                    Session["Phone"] = KH.Phone;
+                    Session["DiaChi"] = KH.DiaChi;
                 }
             }
             else

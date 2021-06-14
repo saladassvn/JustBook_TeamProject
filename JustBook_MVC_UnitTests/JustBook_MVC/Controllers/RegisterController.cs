@@ -35,6 +35,8 @@ namespace JustBook.Controllers
             ModelState.Clear();
             Session["MaKH"] = accountModel.MaKH;
             Session["TenKH"] = accountModel.TenKH;
+            Session["Phone"] = accountModel.Phone;
+            Session["DiaChi"] = accountModel.DiaChi;
             return RedirectToAction("Index", "Home");
         }
     }

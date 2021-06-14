@@ -437,7 +437,7 @@
                         $("input[itemid=" + itemId + "]").val(SoLuongMuaBanDau);
                         $("#" + itemId).text(dongia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
                         $("#" + itemId).attr("data-content", dongia)
-                        alert("Không thể mua thêm sản phẩm.");
+                        alert("Không thể chỉnh sửa sản phẩm.");
                     }
                     else if (quantityItem > soluong) {
                         $("input[itemid=" + itemId + "]").val(soluong);

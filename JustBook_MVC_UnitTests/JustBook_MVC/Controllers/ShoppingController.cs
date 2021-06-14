@@ -65,23 +65,32 @@ namespace JustBook.Controllers
             var currentId_Url = Url.RequestContext.RouteData.Values["id"];
 
             ShoppingViewModel sp_model_url = new ShoppingViewModel();
-            SanPham sp = db.SanPhams.Single(model => model.MaSP.ToString() == currentId_Url.ToString());
-            LoaiSanPham loai_sp = db.LoaiSanPhams.Single(model => model.MaLoaiSP == sp.MaLoaiSP);
 
-            sp_model_url.MaSP = currentId_Url.ToString();
-            sp_model_url.TenSP = sp.TenSP;
-            sp_model_url.LoaiSanPham = loai_sp.TenLoaiSP;
-            sp_model_url.TacGia = sp.TacGia;
-            sp_model_url.NXB = sp.NXB;
-            sp_model_url.DonGia = sp.DonGia;
-            sp_model_url.MoTa = sp.MoTa;
-            sp_model_url.SoLuong = sp.SoLuong;
-            sp_model_url.SoTrang = sp.SoTrang;
-            sp_model_url.TrongLuong = sp.TrongLuong;
-            sp_model_url.KichThuoc = sp.KichThuoc;
-            sp_model_url.LoaiBia = sp.LoaiBia;
-            sp_model_url.TrangThai = sp.TrangThai;
-            sp_model_url.ImagePath = sp.ImagePath;
+            if(db.SanPhams.Any(model => model.MaSP.ToString() == currentId_Url.ToString()))
+            {
+                SanPham sp = db.SanPhams.Single(model => model.MaSP.ToString() == currentId_Url.ToString());
+                LoaiSanPham loai_sp = db.LoaiSanPhams.Single(model => model.MaLoaiSP == sp.MaLoaiSP);
+
+                sp_model_url.MaSP = currentId_Url.ToString();
+                sp_model_url.TenSP = sp.TenSP;
+                sp_model_url.LoaiSanPham = loai_sp.TenLoaiSP;
+                sp_model_url.TacGia = sp.TacGia;
+                sp_model_url.NXB = sp.NXB;
+                sp_model_url.DonGia = sp.DonGia;
+                sp_model_url.MoTa = sp.MoTa;
+                sp_model_url.SoLuong = sp.SoLuong;
+                sp_model_url.SoTrang = sp.SoTrang;
+                sp_model_url.TrongLuong = sp.TrongLuong;
+                sp_model_url.KichThuoc = sp.KichThuoc;
+                sp_model_url.LoaiBia = sp.LoaiBia;
+                sp_model_url.TrangThai = sp.TrangThai;
+                sp_model_url.ImagePath = sp.ImagePath;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Shopping");
+            }
+            
 
             return View(sp_model_url);
         }

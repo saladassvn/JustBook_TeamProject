@@ -69,10 +69,10 @@ namespace JustBook.Controllers
                     {
                         TongSoLuongMua += listOfshoppingCartModels[i].SoLuongMua;
                         TongCong += listOfshoppingCartModels[i].TongCong;
-                        Session["TongSoLuongMua"] = TongSoLuongMua;
-                        Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
-                        Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
                     }
+                    Session["TongSoLuongMua"] = TongSoLuongMua;
+                    Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
+                    Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
                     Session["CartCounter"] = TongSoLuongMua;
                     Session["CartItem"] = listOfshoppingCartModels;
 
@@ -84,12 +84,29 @@ namespace JustBook.Controllers
                     double TongCong = 0;
                     for (int i = 0; i < listOfshoppingCartModels.Count; i++)
                     {
-                        TongSoLuongMua += listOfshoppingCartModels[i].SoLuongMua;
-                        TongCong += listOfshoppingCartModels[i].TongCong;
-                        Session["TongSoLuongMua"] = TongSoLuongMua;
-                        Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
-                        Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
+                        var MaSP = listOfshoppingCartModels[i].MaSP;
+                        if (db.SanPhams.Any(x => x.MaSP == MaSP)) //Kiểm tra sp trong list có tồn tại không.
+                        {
+                            TongSoLuongMua += listOfshoppingCartModels[i].SoLuongMua;
+                            TongCong += listOfshoppingCartModels[i].TongCong;
+                        }
+                        else
+                        {
+                            listOfshoppingCartModels.Remove(listOfshoppingCartModels[i]);
+                        }
                     }
+
+                    if(TongSoLuongMua == 0)
+                    {
+                        Session["TongSoLuongMua"] = null;
+                    }
+                    else
+                    {
+                        Session["TongSoLuongMua"] = TongSoLuongMua;
+                    }
+                    
+                    Session["TongCong_temp"] = string.Format("{0:#,##0 VND}", TongCong);
+                    Session["TongCong"] = string.Format("{0:#,##0 VND}", TongCong - TongCong * 0.15);
                     Session["CartCounter"] = TongSoLuongMua;
                     Session["CartItem"] = listOfshoppingCartModels;
 

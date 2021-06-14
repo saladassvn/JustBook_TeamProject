@@ -37,19 +37,22 @@ namespace JustBook.Controllers
                         var ListOfChiTietGH = db.ChiTietGioHangs.Where(model => model.MaGioHang == giohang.MaGH).ToList();
                         foreach (var chitiet in ListOfChiTietGH)
                         {
-                            ShoppingCartModel cart_model = new ShoppingCartModel();
-                            cart_model.MaSP = chitiet.MaSP;
-                            cart_model.TenSP = chitiet.TenSP;
-                            cart_model.TacGia = chitiet.TacGia;
-                            cart_model.SoLuongMua = chitiet.SoLuongMua;
-                            cart_model.SoLuong = chitiet.SoLuong;
-                            cart_model.DonGia = chitiet.DonGia;
-                            cart_model.TongCong = chitiet.TongCong;
-                            cart_model.ImagePath = chitiet.ImagePath;
+                            if(db.SanPhams.Any(model => model.MaSP == chitiet.MaSP)) //Kiểm tra sp trong list có tồn tại không.
+                            {
+                                ShoppingCartModel cart_model = new ShoppingCartModel();
+                                cart_model.MaSP = chitiet.MaSP;
+                                cart_model.TenSP = chitiet.TenSP;
+                                cart_model.TacGia = chitiet.TacGia;
+                                cart_model.SoLuongMua = chitiet.SoLuongMua;
+                                cart_model.SoLuong = chitiet.SoLuong;
+                                cart_model.DonGia = chitiet.DonGia;
+                                cart_model.TongCong = chitiet.TongCong;
+                                cart_model.ImagePath = chitiet.ImagePath;
 
-                            TongSoLuongMua += chitiet.SoLuongMua;
+                                TongSoLuongMua += chitiet.SoLuongMua;
 
-                            listOfshoppingCartModels.Add(cart_model);
+                                listOfshoppingCartModels.Add(cart_model);
+                            }
                         }
                     }
 

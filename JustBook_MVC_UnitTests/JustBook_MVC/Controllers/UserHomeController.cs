@@ -72,8 +72,8 @@ namespace JustBook.Controllers
                         ThoiGianTao = dh.ThoiGianTao
                     }
                ).GroupBy(x => x.MaDH).Select(i => i.FirstOrDefault()).ToList();
-
-            return View(listOfDonHang);
+            var listAfterDescending = listOfDonHang.OrderByDescending(x => x.MaDH).ToList();
+            return View(listAfterDescending);
         }
 
         public ActionResult OrderHistory()
@@ -101,7 +101,8 @@ namespace JustBook.Controllers
                         TrangThaiDonHang = trangthai.TrangThai
                     }
                ).GroupBy(x => x.MaDH).Select(i => i.FirstOrDefault()).ToList();
-            return View(listOfDonHang);
+            var listAfterDescending = listOfDonHang.OrderByDescending(x => x.MaDH).ToList();
+            return View(listAfterDescending);
         }
 
         public ActionResult OrderUserDetail(int id)

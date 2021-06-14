@@ -498,6 +498,17 @@ namespace JustBook.Controllers
                 }
             }
 
+            //Xóa sp tồn tại trong đơn hàng
+            var listOfDetailOrder = db.ChiTietDonHangs.Where(x => x.MaSP == MaSP).ToList();
+            foreach (var chitiet in listOfDetailOrder)
+            {
+                DonHang dh = db.DonHangs.SingleOrDefault(x => x.MaDH == chitiet.MaDonHang);
+                dh.TongGiaTriDonHang -= chitiet.SoLuong * chitiet.DonGia;
+
+                db.ChiTietDonHangs.Remove(chitiet);
+                db.SaveChanges();
+            }
+
             return Json(new { Success = true, Message = "Xóa sản phẩm #" + MaSP + " thành công." }, JsonRequestBehavior.AllowGet);
         }
     }

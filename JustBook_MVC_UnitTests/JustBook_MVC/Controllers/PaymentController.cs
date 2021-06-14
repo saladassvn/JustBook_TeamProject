@@ -88,6 +88,7 @@ namespace JustBook.Controllers
                     if(sanpham.SoLuong <= 0)
                     {
                         sanpham.SoLuong = 0;
+                        sanpham.TrangThai = "Hết hàng";
                     }
                     db.SaveChanges();
                 }

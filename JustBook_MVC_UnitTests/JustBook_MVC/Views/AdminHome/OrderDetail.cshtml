@@ -196,12 +196,12 @@
                                     @if (@Model.TrangThaiDonHang != "Đã bị hủy")
                                     {
                                         <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="@chitietDH.SoLuongConLai"
-                                         itemid="@chitietDH.MaSP" name="quantityItemName" value="@chitietDH.SoLuong" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                         itemid="@chitietDH.MaSP" name="quantityItemName" value="@chitietDH.SoLuong" data-container="@chitietDH.SoLuong" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
                                     }
                                     else
                                     {
                                         <input disabled type="button" value="-" class="minus"><input disabled type="number" step="1" min="1" max="@chitietDH.SoLuongConLai"
-                                         itemid="@chitietDH.MaSP" name="quantityItemName" value="@chitietDH.SoLuong" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input disabled type="button" value="+" class="plus">
+                                         itemid="@chitietDH.MaSP" name="quantityItemName" value="@chitietDH.SoLuong" data-container="@chitietDH.SoLuong" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input disabled type="button" value="+" class="plus">
                                     }
                                 </div>
                             </td>
@@ -403,6 +403,7 @@
             var quantityItem = this.value;
             var SanPham = {};
             var TongCong = 0;
+            var SoLuongMuaBanDau = $(this).attr("data-container");
 
             async function getSoLuong() {
                 await $.ajax({
@@ -433,10 +434,10 @@
                         $("#" + itemId).attr("data-content", dongia)
                     }
                     else if (soluong == 0) {
-                        $("input[itemid=" + itemId + "]").val(1);
+                        $("input[itemid=" + itemId + "]").val(SoLuongMuaBanDau);
                         $("#" + itemId).text(dongia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
                         $("#" + itemId).attr("data-content", dongia)
-                        alert("Số lượng chỉ còn lại " + 1 + " sản phẩm.");
+                        alert("Không thể mua thêm sản phẩm.");
                     }
                     else if (quantityItem > soluong) {
                         $("input[itemid=" + itemId + "]").val(soluong);
